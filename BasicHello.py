@@ -26,7 +26,7 @@ while True:
             print status
             api.update_status(status)
 
-        time.sleep(10000)
+        time.sleep(100000)
     except:
         pass
 
