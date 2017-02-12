@@ -1,1 +1,3 @@
-print "just try"
+import credential
+
+print credential.password
