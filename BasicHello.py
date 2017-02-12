@@ -19,6 +19,7 @@ api = tweepy.API(auth)
 while True:
     try:
         case_int = random.randint(1,1)
+        print "just checking"
         #case_int=2
         if (case_int ==1):
             status = "with cred" +str(random.randint(1,100))
