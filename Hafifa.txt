@@ -1,0 +1,24 @@
+Preliminaries:
+
+    status = Tweet
+
+
+Development tips:
+
+    Everthing inside Try,expect  ---  otherwise it crash.
+
+    Sleep /  wait between  - 10/ 15 mintues.
+
+
+
+Twitter tips:
+    view analytics- https://analytics.twitter.com/user/TwiceInAWhile/home
+
+
+
+ Pycharm configuration( Tomer if you get in some troubles..):
+
+     http://stackoverflow.com/questions/7438313/pushing-to-git-returning-error-code-403-fatal-http-request-failed#7771927
+
+     ssh- https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#platform-windows
+
