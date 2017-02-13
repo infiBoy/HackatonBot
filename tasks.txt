@@ -61,3 +61,10 @@ Tasks
 #Deal breaker (We will choose at 23:00 our joker)..
     #A rocket with map that similiar to the location of the user
 
+
+
+#Cool resources to learn from..
+
+    papercut classifier-     https://github.com/peterwilliams97/twitter_bot
+
+

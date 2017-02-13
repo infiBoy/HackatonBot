@@ -6,8 +6,12 @@ import credential
 
 #Here is the running skill
 def run(BotCred):
-    print "post"
-    BotCred.update_status("success"+str(random.randint(1,100)))
+    print "retweet"
+    #Find good tweet (pro..)
+    #retweet...
+
+    #Api goes as: BotCred.retweet...
+
     pass
 
 
