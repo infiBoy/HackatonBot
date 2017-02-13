@@ -29,7 +29,7 @@ cl = NaiveBayesClassifier(train)
 # Grab some movie review data
 reviews = [(list(movie_reviews.words(fileid)), category)
               for category in movie_reviews.categories()
-              for fileid in movie_reviews.fileids(category)]
+             for fileid in movie_reviews.fileids(category)]
 random.shuffle(reviews)
 new_train, new_test = reviews[0:140], reviews[141:200]
 
