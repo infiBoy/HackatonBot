@@ -19,6 +19,12 @@ api = tweepy.API(auth)
 #post tweets with gifs...
 while True:
     try:
+
+        #Dynamic load all the skills
+
+        #Choose random skill
+        #run the skill.
+
         case_int = random.randint(1,1)
         print "just checking"
         #case_int=2

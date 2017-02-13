@@ -1,0 +1,63 @@
+Tasks
+
+#General goals
+
+    until 15:00 -> algorithm classifier is in production ( preproccessin(+/- , training, dataset to post "You are totally right..")
+         (Guy arrange and expose script, haim- crawling,  tomer- classifier(integration +testing)
+    until 20:00 -> or to tune, or add snippet , change to FB
+                    {refernce to other sites,
+
+    until 23:00 -> working on Presentation
+    23:00 + -> deal breaker.
+
+
+#Simple task to implement
+    #Add picture and decription to the bot
+
+
+
+#Technialls issues:
+    #Posting to Youtube,Posting.
+    #Crawling: Facts, people to rememeber, Pictures etc..
+    #Classifier: (Using Bag of words? -> Deep learning..)
+    #Generated comments
+
+#Contexts(IDF:
+
+    (12:00)
+    priory 1!!!!!#Dataset ( positive / negative -> sentences)
+                #DataSet sentences  ( by categories...)
+                #haim:mission-> give with the correct format to tomer
+
+                -Palestine...
+                {"This is fake news ,sads.."
+                -AntiIDF
+                -ProIDF
+                -...
+                #Other option: when i reconize it's bad...Analyze the subject of the sentece.
+
+
+       priority(2)!!!!!! #Tune(level 15:00+ ):Try to:  make 2 connected sentences.
+
+            "Hey @user you talk about #palestine -this is not true. " (variataion)
+            additive " If you really to know the turth..follow"
+
+
+     #Crawling(appart from twitter)
+        #Guy -> gif  ( you think palsetinte is real? think again"
+        #Facts/Qutes (About isreal...make a list..)
+        #Picture of soldier models.. (לדוגמאות לחקיקוי)
+
+
+#Snippet list- (From 15:00 +)
+    #Post qutoe/Facts
+    #React with gif to negative
+    #Get One pro and one negative, to disscution... (תומר - בוט רע/זיוף )
+    #Pictures of soldiers
+    #Get cites from cool articles   ( אתר דובר)
+    #Polls
+
+
+#Deal breaker (We will choose at 23:00 our joker)..
+    #A rocket with map that similiar to the location of the user
+
