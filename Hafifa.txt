@@ -24,4 +24,4 @@ Twitter tips:
 
 Tomer Requirements:
 download and run python from anaconda
-run : pip install -U textblob nltk and all guy's stuff again
+run : pip install -U textblob nltk and all guy's stuff again.
