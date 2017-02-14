@@ -16,7 +16,7 @@ from nltk  import bigrams
 #Tomer/ haim -edit me only...
 searchTerms = ["israel" ,"love"]
 fileName ="Pro"
-
+sign = "|||Positive \n"
 
 
 temp = "nan"
@@ -121,7 +121,7 @@ try:
             #Save lines with preproccess
             with open(fileName + 'senteces.json', 'a') as f:
                 print sentecesProcces
-                f.write(sentecesProcces.encode('ascii', 'ignore').decode('ascii') + "|||Positive \n")
+                f.write(sentecesProcces.encode('ascii', 'ignore').decode('ascii') +sign )
 
 
 
