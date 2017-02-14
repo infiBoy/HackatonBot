@@ -1,7 +1,7 @@
 import re
 import wikipedia
 
-
+  
 
 def wikicomment(subject):
     data = wikipedia.page("israel")
