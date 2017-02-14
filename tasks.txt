@@ -49,7 +49,7 @@ Tasks
         #Picture of soldier models.. (לדוגמאות לחקיקוי)
 
 
-#Snippet list- (From 15:00 +)
+#Skills list- (From 15:00 +)
     #Post qutoe/Facts
     #React with gif to negative
     #Get One pro and one negative, to disscution... (תומר - בוט רע/זיוף )
@@ -68,3 +68,6 @@ Tasks
     papercut classifier-     https://github.com/peterwilliams97/twitter_bot
 
 
+#use syntaxnet
+
+#
