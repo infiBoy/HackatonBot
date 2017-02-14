@@ -22,3 +22,6 @@ Twitter tips:
 
      ssh- https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#platform-windows
 
+Tomer Requirements:
+download and run python from anaconda
+run : pip install -U textblob nltk and all guy's stuff again.
