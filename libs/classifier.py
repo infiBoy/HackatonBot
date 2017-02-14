@@ -2,6 +2,7 @@ import random
 from textblob.classifiers import NaiveBayesClassifier
 import cPickle as pickle
 import os.path
+from textblob import  TextBlob
 
 def createDataFromFile(fileName):
     twitts = [];
@@ -34,8 +35,8 @@ def openObject() :
     with open(os.getcwd() +'/../libs/trainedBrain.pkl', 'rb') as input:
         return pickle.load(input)
 
-def classify(cl, twitt) :
-    return cl.classify(twitt)
+def classify(cl, tweet) :
+    return cl.classify(tweet) #return cl.classify(tweet)
 
 if __name__ == '__main__':
     tweets = createDataFromFile("clearSenteces.json")

@@ -24,6 +24,7 @@ def run(BotCred):
         cl =  classifier.openObject()
 
         output = classifier.classify(cl,text)
+        print text
         print output
         if output=="Positive":
             BotCred.retweet(id)

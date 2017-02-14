@@ -20,6 +20,7 @@ sign = "|||Negative \n"
 
 
 temp = "nan"
+
 punctuation = list(string.punctuation)
 stop = stopwords.words('english') + punctuation +['#RT','#rt','rt','RT', 'via']  + \
        [temp] + ["#" + temp] + [u'\u2026']

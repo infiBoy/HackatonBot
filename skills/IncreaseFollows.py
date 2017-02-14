@@ -8,7 +8,7 @@ import credential
 def run(BotCred):
     print "post"
 
-    curr_keyword = random.choice(["RT followback","Followback"])
+    curr_keyword = random.choice(["train followback","Followback"])
 
     results = BotCred.search(q=curr_keyword, )
     for result in results:
