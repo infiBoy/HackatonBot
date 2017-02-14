@@ -10,7 +10,7 @@ import json
 #override tweepy.StreamListener to add logic to on_status
 
 
-StreamingString= 'AntiIDF'
+StreamingString= 'toujours sur lui au cas'
 
 
 class MyStreamListener(tweepy.StreamListener):
