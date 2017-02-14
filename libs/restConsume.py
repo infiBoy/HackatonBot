@@ -112,7 +112,7 @@ try:
             #print( '@%s tweeted: %s' % ( tweet['user']['screen_name'], tweet['text'] ) )
 
             #Save lines with preproccess
-            
+
 
 except TwitterSearchException as e: # take care of all those ugly errors if there are some
     print(e)
