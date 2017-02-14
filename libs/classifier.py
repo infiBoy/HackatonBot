@@ -14,9 +14,9 @@ def createDataFromFile(fileName):
 
 def learnAndSave(twitts) :
     cl = None
-    if(os.path.isfile('trainedBrain.pkl')) :
-        with open('trainedBrain.pkl', 'rb') as input:
-            cl = pickle.load(input)
+
+    with open(os.getcwd() +'/../libs/trainedBrain.pkl', 'rb') as input:
+        cl = pickle.load(input)
 
     if(cl == None) :
         print "going to train " + str(twitts.__len__())
@@ -25,16 +25,17 @@ def learnAndSave(twitts) :
     else :
         cl.update(twitts)
 
-    with open('trainedBrain.pkl', 'wb') as output:
+    with open(os.getcwd() +'/../libs/trainedBrain.pkl', 'wb') as output:
         pickle.dump(cl, output, pickle.HIGHEST_PROTOCOL)
 
     return cl
 
 def openObject() :
-    if(os.path.isfile('trainedBrain.pkl')) :
-        with open('trainedBrain.pkl', 'rb') as input:
-            return pickle.load(input)
+    with open(os.getcwd() +'/../libs/trainedBrain.pkl', 'rb') as input:
+        return pickle.load(input)
 
+def classify(cl, twitt) :
+    return cl.classify(twitt)
 
 if __name__ == '__main__':
     pro = createDataFromFile("libs/Prosenteces.json")

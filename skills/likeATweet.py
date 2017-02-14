@@ -2,6 +2,7 @@ import  tweepy
 import random
 import credential
 #Do the credential
+import libs.classifier as classifier
 
 
 #Here is the running skill
@@ -15,14 +16,23 @@ def run(BotCred):
     for result in results:
 
         text = result._json["text"]
-        #If the classifier like it.... Do the retweet
-
-
         id = result._json["id"]
-        BotCred.retweet(id)
-        print result
 
-    print "done"
+        screen_name1 = result._json["user"]["screen_name"]
+
+        #If the classifier like it.... Do the retweet
+        cl =  classifier.openObject()
+
+        output = classifier.classify(cl,text)
+        print output
+        if output=="Positive":
+            BotCred.retweet(id)
+            print "Retweet for a good tweet"
+        else:
+            BotCred.update_status("Fake News @{}".format(screen_name1), in_reply_to_status_id=id)
+            print  id
+            print "nit's negative one.."
+
     #BotCred.update_status("success"+str(random.randint(1,100)))
     pass
 
