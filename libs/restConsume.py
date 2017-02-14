@@ -2,6 +2,71 @@
 # -*- coding: utf-8 -*-
 
 
+
+import json
+from nltk.tokenize import word_tokenize
+import re
+import operator
+from collections import Counter
+from nltk.corpus import stopwords
+import string
+from nltk  import bigrams
+
+
+term_to_search = "nan"
+
+punctuation = list(string.punctuation)
+stop = stopwords.words('english') + punctuation +['#RT','#rt','rt','RT', 'via']  + \
+       [term_to_search] +["#"+term_to_search] +[u'\u2026']
+
+emoticons_str = r"""
+    (?:
+        [:=;] # Eyes
+        [oO\-]? # Nose (optional)
+        [D\)\]\(\]/\\OpP] # Mouth
+    )"""
+
+regex_str = [
+    emoticons_str,
+    r'<[^>]+>',  # HTML tags
+    r'(?:@[\w_]+)',  # @-mentions
+    r"(?:\#+[\w_]+[\w\'_\-]*[\w_]+)",  # hash-tags
+    r'http[s]?://(?:[a-z]|[0-9]|[$-_@.&amp;+]|[!*\(\),]|(?:%[0-9a-f][0-9a-f]))+',  # URLs
+
+    r'(?:(?:\d+,?)+(?:\.?\d+)?)',  # numbers
+    r"(?:[a-z][a-z'\-_]+[a-z])",  # words with - and '
+    r'(?:[\w_]+)',  # other words
+    r'(?:\S)'  # anything else
+]
+
+tokens_re = re.compile(r'(' + '|'.join(regex_str) + ')', re.VERBOSE | re.IGNORECASE)
+emoticon_re = re.compile(r'^' + emoticons_str + '$', re.VERBOSE | re.IGNORECASE)
+
+
+def tokenize(s):
+    return tokens_re.findall(s)
+
+
+def preprocess(s, lowercase=False):
+    lowercase=True
+    #s= s.encode('ascii', 'ignore').decode('ascii') # Shoud remove for hebrew..
+    #s = re.sub(r'[^\u3000-\u307F]+', "",s) #remove
+    tokens = tokenize(s)
+    if lowercase:
+        tokens = [token if emoticon_re.search(token) else token.lower() for token in tokens]
+    tokens = list(set(tokens)- set(stop))
+
+    return tokens
+
+
+
+def proccessTweet(str):
+    print str
+    new_str = re.sub(r'[^\w]', ' ', str)
+    print new_str
+
+
+
 from TwitterSearch import *
 
 
@@ -10,28 +75,44 @@ fileName ="Pro"
 
 import credential
 try:
-    tso = TwitterSearchOrder() # create a TwitterSearchOrder object
-    tso.set_keywords(['israel', 'palestine']) # let's define all words we would like to have a look for
-    tso.set_language('en') # we want to see German tweets only
-    tso.set_include_entities(False) # and don't give us all those entity information
 
-    # it's about time to create a TwitterSearch object with our secret tokens
-    ts = TwitterSearch(
+    while True:
+        tso = TwitterSearchOrder() # create a TwitterSearchOrder object
+        tso.set_keywords(['israel', 'palestine']) # let's define all words we would like to have a look for
+        tso.set_language('en') # we want to see German tweets only
+        tso.set_include_entities(False) # and don't give us all those entity information
 
-        consumer_key = credential.CONSUMER_KEY,
-        consumer_secret = credential.CONSUMER_SECRET,
-        access_token = credential.ACCESS_KEY,
-        access_token_secret = credential.ACCESS_SECRET
-     )
+        # it's about time to create a TwitterSearch object with our secret tokens
+        ts = TwitterSearch(
 
-     # this is where the fun actually starts :)
-    for tweet in ts.search_tweets_iterable(tso):
-        print tweet['text']
-        with open( fileName+ '.json', 'a') as f:
+            consumer_key = credential.CONSUMER_KEY,
+            consumer_secret = credential.CONSUMER_SECRET,
+            access_token = credential.ACCESS_KEY,
+            access_token_secret = credential.ACCESS_SECRET
+         )
 
-            f.write(tweet['text'].encode('ascii', 'ignore').decode('ascii') + "|||Positive \n") #Changeme for negative
+         # this is where the fun actually starts :)
 
-        #print( '@%s tweeted: %s' % ( tweet['user']['screen_name'], tweet['text'] ) )
+        for tweet in ts.search_tweets_iterable(tso):
+            print tweet['text']
+            tokens = preprocess(tweet['text'])
+            #print proccessTweet(tweet['text'])
+
+
+            #save lines
+            with open( fileName+ '.json', 'a') as f:
+
+                f.write(tweet['text'].encode('ascii', 'ignore').decode('ascii') + "|||Positive \n") #Changeme for negative
+
+
+            #Save the token
+            with open(fileName + 'Tokens.json', 'a') as f:
+                for tok in tokens:
+                    f.write(tok.encode('ascii', 'ignore').decode('ascii')  + " ")
+            #print( '@%s tweeted: %s' % ( tweet['user']['screen_name'], tweet['text'] ) )
+
+            #Save lines with preproccess
+            
 
 except TwitterSearchException as e: # take care of all those ugly errors if there are some
     print(e)
