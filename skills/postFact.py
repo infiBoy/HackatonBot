@@ -12,7 +12,6 @@ def run(BotCred):
 
 
 
-
 #To support debugging a unique skill
 if __name__ == '__main__':
     #Twitter credentials

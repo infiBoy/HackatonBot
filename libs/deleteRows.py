@@ -1,4 +1,3 @@
-
 with open("senteces.json") as f:
     lines = [x for x in f]
 

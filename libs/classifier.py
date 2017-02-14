@@ -14,9 +14,9 @@ def createDataFromFile(fileName):
 
 def learnAndSave(twitts) :
     cl = None
-    if(os.path.isfile('trainedBrain.pkl')) :
-        with open('trainedBrain.pkl', 'rb') as input:
-            cl = pickle.load(input)
+
+    with open(os.getcwd() +'/../libs/trainedBrain.pkl', 'rb') as input:
+        cl = pickle.load(input)
 
     if(cl == None) :
         print "going to train " + str(twitts.__len__())
@@ -25,23 +25,22 @@ def learnAndSave(twitts) :
     else :
         cl.update(twitts)
 
-    with open('trainedBrain.pkl', 'wb') as output:
+    with open(os.getcwd() +'/../libs/trainedBrain.pkl', 'wb') as output:
         pickle.dump(cl, output, pickle.HIGHEST_PROTOCOL)
 
     return cl
 
 def openObject() :
-    if(os.path.isfile('trainedBrain.pkl')) :
-        with open('trainedBrain.pkl', 'rb') as input:
-            return pickle.load(input)
+    with open(os.getcwd() +'/../libs/trainedBrain.pkl', 'rb') as input:
+        return pickle.load(input)
 
+def classify(cl, twitt) :
+    return cl.classify(twitt)
 
 if __name__ == '__main__':
-    pro = createDataFromFile("libs/Prosenteces.json")
-    neg = createDataFromFile("libs/senteces.json")
+    tweets = createDataFromFile("clearSenteces.json")
     random.seed(1)
-    random.shuffle(pro)
-    random.shuffle(neg)
-    cl = learnAndSave(pro[:100] + neg[:100])
+    random.shuffle(tweets)
+    cl = learnAndSave(tweets[:int(tweets.__len__() * 0.7)])
     cl.show_informative_features()
-    print cl.accuracy(pro[101:120] + neg[101:120])
+    print cl.accuracy(tweets[int(tweets.__len__() * 0.7 + 1):int(tweets.__len__())])
