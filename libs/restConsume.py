@@ -14,9 +14,9 @@ from nltk  import bigrams
 
 
 #Tomer/ haim -edit me only...
-searchTerms = ["israel" ,"love"]
-fileName ="Pro"
-sign = "|||Positive \n"
+searchTerms = ["palestine"]
+fileName ="Neg"
+sign = "|||Negative \n"
 
 
 temp = "nan"
