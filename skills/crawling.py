@@ -15,10 +15,10 @@ StreamingString= 'AntiIDF'
 
 class MyStreamListener(tweepy.StreamListener):
 
-    def on_status(self, status):
+    def on_data(self, status):
         with open( StreamingString+ '.json', 'a') as f:
-            print status.text
-            f.write(status.text.encode('utf-8').strip())
+            print status
+            f.write(status)
 
 
     def on_direct_message(self, status):
