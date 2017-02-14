@@ -6,24 +6,24 @@ import credential
 
 #Here is the running skill
 def run(BotCred):
-    #search tweet
-    #check if positive
-    #make like
+    #Get a bad tweet
 
-    curr_keyword= random.choice(["standwithus","israel","israel defence","LoveIsrael","BestOfIsrael","IDF","FIDF"])
+    curr_keyword= random.choice(["freegaza","westbank","isrhell","israel","humanRights"])
     results = BotCred.search(q=curr_keyword, )
     for result in results:
 
         text = result._json["text"]
-        #If the classifier like it.... Do the retweet
-
-
+        #If the classifier not like it ....
         id = result._json["id"]
         BotCred.retweet(id)
+
+        BotCred.update_status( "Fake News", in_reply_to_status_id=id)
+
         print result
 
-    print "done"
-    #BotCred.update_status("success"+str(random.randint(1,100)))
+
+    #generate tweet against..
+    print "Done talk to bad tweet"
     pass
 
 

@@ -6,24 +6,21 @@ import credential
 
 #Here is the running skill
 def run(BotCred):
-    #search tweet
-    #check if positive
-    #make like
+    print "post"
 
-    curr_keyword= random.choice(["standwithus","israel","israel defence","LoveIsrael","BestOfIsrael","IDF","FIDF"])
+    curr_keyword = random.choice(["RT followback","Followback"])
+
     results = BotCred.search(q=curr_keyword, )
     for result in results:
-
-        text = result._json["text"]
-        #If the classifier like it.... Do the retweet
-
-
-        id = result._json["id"]
-        BotCred.retweet(id)
+        # Get Some details of the user that tweet with the keyword
+        # it might help to do the statistics after that
+        # Maybe later save all the stats to a DB
+        # print  json.dumps(result._json)
         print result
+        screen_name1 = result._json["user"]["screen_name"]
+        BotCred.create_friendship(screen_name1)
+        print "success" + screen_name1
 
-    print "done"
-    #BotCred.update_status("success"+str(random.randint(1,100)))
     pass
 
 
