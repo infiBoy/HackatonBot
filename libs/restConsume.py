@@ -14,9 +14,9 @@ from nltk  import bigrams
 
 
 #Tomer/ haim -edit me only...
-searchTerms = ["female","commander" ,"idf"]
-fileName ="Pro"
-sign = "|||Positive \n"
+searchTerms = ["palestine"]
+fileName ="Neg"
+sign = "|||Negative \n"
 
 
 temp = "nan"
@@ -130,7 +130,7 @@ try:
 except TwitterSearchException as e: # take care of all those ugly errors if there are some
     print(e)
 
-
+print "dsds"
 
 '''
             #save lines
