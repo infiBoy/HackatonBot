@@ -13,11 +13,17 @@ import string
 from nltk  import bigrams
 
 
-term_to_search = "nan"
+#Tomer/ haim -edit me only...
+searchTerms = ["israel" ,"love"]
+fileName ="Pro"
 
+
+
+temp = "nan"
 punctuation = list(string.punctuation)
 stop = stopwords.words('english') + punctuation +['#RT','#rt','rt','RT', 'via']  + \
-       [term_to_search] +["#"+term_to_search] +[u'\u2026']
+       [temp] + ["#" + temp] + [u'\u2026']
+
 
 emoticons_str = r"""
     (?:
@@ -27,16 +33,16 @@ emoticons_str = r"""
     )"""
 
 regex_str = [
-    emoticons_str,
+
     r'<[^>]+>',  # HTML tags
     r'(?:@[\w_]+)',  # @-mentions
     r"(?:\#+[\w_]+[\w\'_\-]*[\w_]+)",  # hash-tags
     r'http[s]?://(?:[a-z]|[0-9]|[$-_@.&amp;+]|[!*\(\),]|(?:%[0-9a-f][0-9a-f]))+',  # URLs
 
-    r'(?:(?:\d+,?)+(?:\.?\d+)?)',  # numbers
-    r"(?:[a-z][a-z'\-_]+[a-z])",  # words with - and '
-    r'(?:[\w_]+)',  # other words
-    r'(?:\S)'  # anything else
+    #r'(?:(?:\d+,?)+(?:\.?\d+)?)',  # numbers
+    #r"(?:[a-z][a-z'\-_]+[a-z])",  # words with - and '
+    #r'(?:[\w_]+)',  # other words
+    #r'(?:\S)'  # anything else
 ]
 
 tokens_re = re.compile(r'(' + '|'.join(regex_str) + ')', re.VERBOSE | re.IGNORECASE)
@@ -61,16 +67,30 @@ def preprocess(s, lowercase=False):
 
 
 def proccessTweet(str):
-    print str
-    new_str = re.sub(r'[^\w]', ' ', str)
-    print new_str
+    querywords = str.split()
+
+    resultwords = [word for word in querywords if word.lower() not in (stop or tokens_re)]
+    returnstring = ' '.join(resultwords)
+
+    #now remove the regex
+    #print returnstring
+    for reg_stop in regex_str:
+        new_string =re.sub(reg_stop,'', returnstring)
+        new_string =re.sub('@.*? ', '', new_string)
+    #print new_string
 
 
+    return new_string
+
+'''
+    for word in querywords:
+        if word.lower() not in stop:
+            print word
+'''
 
 from TwitterSearch import *
 
 
-fileName ="Pro"
 
 
 import credential
@@ -78,7 +98,7 @@ try:
 
     while True:
         tso = TwitterSearchOrder() # create a TwitterSearchOrder object
-        tso.set_keywords(['israel', 'palestine']) # let's define all words we would like to have a look for
+        tso.set_keywords(searchTerms) # let's define all words we would like to have a look for
         tso.set_language('en') # we want to see German tweets only
         tso.set_include_entities(False) # and don't give us all those entity information
 
@@ -94,11 +114,25 @@ try:
          # this is where the fun actually starts :)
 
         for tweet in ts.search_tweets_iterable(tso):
-            print tweet['text']
-            tokens = preprocess(tweet['text'])
-            #print proccessTweet(tweet['text'])
+            #print tweet['text']
+            #tokens = preprocess(tweet['text'])
+            sentecesProcces = proccessTweet(tweet['text'])
+
+            #Save lines with preproccess
+            with open(fileName + 'senteces.json', 'a') as f:
+                print sentecesProcces
+                f.write(sentecesProcces.encode('ascii', 'ignore').decode('ascii') + "|||Positive \n")
 
 
+
+
+
+except TwitterSearchException as e: # take care of all those ugly errors if there are some
+    print(e)
+
+print "dsds"
+
+'''
             #save lines
             with open( fileName+ '.json', 'a') as f:
 
@@ -110,11 +144,4 @@ try:
                 for tok in tokens:
                     f.write(tok.encode('ascii', 'ignore').decode('ascii')  + " ")
             #print( '@%s tweeted: %s' % ( tweet['user']['screen_name'], tweet['text'] ) )
-
-            #Save lines with preproccess
-
-
-except TwitterSearchException as e: # take care of all those ugly errors if there are some
-    print(e)
-
-print "dsds"
+'''
