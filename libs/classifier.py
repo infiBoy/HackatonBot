@@ -1,10 +1,11 @@
 import random
 from textblob.classifiers import NaiveBayesClassifier
+from textblob import TextBlob
 import cPickle as pickle
 import os.path
 
 def createDataFromFile(fileName):
-    twitts = [];
+    twitts = []
 
     with open(fileName) as f:
         input = f.readlines()
@@ -20,7 +21,7 @@ def learnAndSave(twitts) :
 
     if(cl == None) :
         print "going to train " + str(twitts.__len__())
-        cl = NaiveBayesClassifier(twitts)
+        cl = NaiveBayesClassifier(tweets)
         print "finish training"
     else :
         cl.update(twitts)
@@ -35,11 +36,17 @@ def openObject() :
         with open('trainedBrain.pkl', 'rb') as input:
             return pickle.load(input)
 
+def classify(cl, tweet) :
+    if(TextBlob(tweet).detect_language() == "en") :
+        return cl.classify(tweet)
+    else :
+        cl.classify(TextBlob(tweet).translate(from_lang="en"))
 
 if __name__ == '__main__':
     tweets = createDataFromFile("clearSenteces.json")
     random.seed(1)
     random.shuffle(tweets)
     cl = learnAndSave(tweets[:int(tweets.__len__() * 0.7)])
+    #cl = openObject()
     cl.show_informative_features()
-    print cl.accuracy(tweets[int(tweets.__len__() * 0.7 + 1):int(tweets.__len__())])
+    print cl.accuracy(tweets[int(tweets.__len__() * 0.7 + 1):])
