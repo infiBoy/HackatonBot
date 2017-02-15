@@ -1,9 +1,18 @@
+import re
+import wikipedia
 import  tweepy
 import random
-import credential3 as credential
-#Do the credential
+import credential3
 import libs.classifier as classifier
-import libs.utilities as utilities
+
+def wikicomment(subject):
+    data = wikipedia.page("israel")
+    try:
+        newContent = data.content.split("== Background ==")
+        newContent = newContent[1][:130]
+        print newContent
+    except:
+        print "No wikipedia Background"
 
 #Here is the running skill
 def run(BotCred):
@@ -29,11 +38,16 @@ def run(BotCred):
 
         if (output=="Negative \n"):
             print "Negative"
-            status = utilities.rand_line("./NegativeRect.txt")
-            link = utilities.rand_line("./links.txt")
-            print screen_name1
-            BotCred.update_status((status+"  @{} "+str(random.randint(1,75))).format(link,screen_name1), in_reply_to_status_id=id)
-            break
+            data = wikipedia.page(curr_keyword)
+            try:
+                newContent = data.content.split("== Background ==")
+                newContent = newContent[1][:100]
+                print newContent
+                print screen_name1
+                BotCred.update_status(("Hey @{} , Do you know that " + data).format(screen_name1), in_reply_to_status_id=id)
+                break
+            except:
+                print "No wikipedia Background"
 
     #BotCred.update_status("success"+str(random.randint(1,100)))
     pass
@@ -44,10 +58,10 @@ def run(BotCred):
 #To support debugging a unique skill
 if __name__ == '__main__':
     #Twitter credentials
-    CONSUMER_KEY = credential.CONSUMER_KEY
-    CONSUMER_SECRET = credential.CONSUMER_SECRET
-    ACCESS_KEY = credential.ACCESS_KEY
-    ACCESS_SECRET = credential.ACCESS_SECRET
+    CONSUMER_KEY = credential3.CONSUMER_KEY
+    CONSUMER_SECRET = credential3.CONSUMER_SECRET
+    ACCESS_KEY = credential3.ACCESS_KEY
+    ACCESS_SECRET = credential3.ACCESS_SECRET
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
     BotCred = tweepy.API(auth)

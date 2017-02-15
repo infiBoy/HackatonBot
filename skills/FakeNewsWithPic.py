@@ -1,10 +1,10 @@
 import  tweepy
 import random
-import credential3 as credential
+import credential2 as credential
 #Do the credential
 import libs.classifier as classifier
 import libs.utilities as utilities
-
+import os
 #Here is the running skill
 def run(BotCred):
     #search tweet
@@ -32,8 +32,14 @@ def run(BotCred):
             status = utilities.rand_line("./NegativeRect.txt")
             link = utilities.rand_line("./links.txt")
             print screen_name1
-            BotCred.update_status((status+"  @{} "+str(random.randint(1,75))).format(link,screen_name1), in_reply_to_status_id=id)
-            break
+
+            picture_path = os.getcwd() + "/picsFake/"
+            list_of_pics = os.listdir(picture_path)
+            rand_pic = random.choice(list_of_pics)
+            BotCred.update_with_media(picture_path + rand_pic,(status+" @{}").format(link,screen_name1))
+            return
+
+
 
     #BotCred.update_status("success"+str(random.randint(1,100)))
     pass
@@ -43,6 +49,7 @@ def run(BotCred):
 
 #To support debugging a unique skill
 if __name__ == '__main__':
+
     #Twitter credentials
     CONSUMER_KEY = credential.CONSUMER_KEY
     CONSUMER_SECRET = credential.CONSUMER_SECRET
